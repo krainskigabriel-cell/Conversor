@@ -6,11 +6,12 @@ const res = document.getElementById("resultado");
 btn.addEventListener("click", async () => {
   const preco = document.getElementById("preco").value;
   const quantidade = document.getElementById("quantidade").value;
+  const percentualDesconto = document.getElementById("percentualDesconto").value;
 
   const resp = await fetch("/calcular", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ preco, quantidade }),
+    body: JSON.stringify({ preco, quantidade, Desconto }),
   });
   const dados = await resp.json();
 
@@ -20,5 +21,7 @@ btn.addEventListener("click", async () => {
     return;
   }
   res.className = "resultado ok";
-  res.textContent = `Total: R$ ${dados.total.toFixed(2)}`;
+  res.textContent = `Subtotal: R$ ${dados.subtotal.toFixed(2)}`
+                    `Desconto: R$ ${dados.desconto.toFixed(2)}`
+                    `Total: R$ ${dados.total.toFixed(2)}`;
 });
